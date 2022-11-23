@@ -9,8 +9,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
-    "pck": "vite build && svelte-package && node ./tools/tweakPck",
+    "build": "svelte-kit sync && vite build",
+    "pck": "pnpm build && svelte-package && node ./tools/tweakPck",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "release": "pnpm pck && changeset publish"
