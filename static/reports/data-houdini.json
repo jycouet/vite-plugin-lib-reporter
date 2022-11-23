@@ -1,0 +1,139 @@
+{
+  "name": "Houdini",
+  "results": {
+    "source": {
+      "nbFile": 44,
+      "size": 100436,
+      "minified": 57496,
+      "compressed": 23793
+    },
+    "treeshaked": {
+      "nbFile": 4,
+      "size": 66937,
+      "minified": 35381,
+      "compressed": 14500
+    }
+  },
+  "treeData": [
+    {
+      "location": "$houdini/plugins/houdini-svelte/stores/AllContinents.js",
+      "valueUsed": 173,
+      "valueRemoved": 80
+    },
+    {
+      "location": "$houdini/runtime/lib/config.js",
+      "valueUsed": 360,
+      "valueRemoved": 79
+    },
+    {
+      "location": "$houdini/artifacts/AllContinents.js",
+      "valueUsed": 268,
+      "valueRemoved": 0
+    },
+    {
+      "location": "$houdini/plugins/houdini-svelte/runtime/session.js",
+      "valueUsed": 665,
+      "valueRemoved": 133
+    },
+    {
+      "location": "$houdini/plugins/houdini-svelte/runtime/adapter.js",
+      "valueUsed": 96,
+      "valueRemoved": 80
+    },
+    {
+      "location": "$houdini/runtime/lib/scalars.js",
+      "valueUsed": 589,
+      "valueRemoved": 130
+    },
+    {
+      "location": "houdini.config.js",
+      "valueUsed": 135,
+      "valueRemoved": 14
+    },
+    {
+      "location": "$houdini/plugins/houdini-svelte/runtime/stores/query.js",
+      "valueUsed": 1571,
+      "valueRemoved": 392
+    },
+    {
+      "location": "$houdini/plugins/houdini-svelte/runtime/stores/store.js",
+      "valueUsed": 100,
+      "valueRemoved": 52
+    },
+    {
+      "location": "$houdini/runtime/lib/types.js",
+      "valueUsed": 174,
+      "valueRemoved": 148
+    },
+    {
+      "location": "$houdini/plugins/houdini-svelte/runtime/network.js",
+      "valueUsed": 169,
+      "valueRemoved": 32
+    },
+    {
+      "location": "$houdini/runtime/index.js",
+      "valueUsed": 58,
+      "valueRemoved": 312
+    },
+    {
+      "location": "$houdini/runtime/lib/deepEquals.js",
+      "valueUsed": 279,
+      "valueRemoved": 8
+    },
+    {
+      "location": "$houdini/runtime/lib/network.js",
+      "valueUsed": 842,
+      "valueRemoved": 377
+    },
+    {
+      "location": "$houdini/runtime/lib/log.js",
+      "valueUsed": 215,
+      "valueRemoved": 109
+    },
+    {
+      "location": "$houdini/runtime/cache/index.js",
+      "valueUsed": 46,
+      "valueRemoved": 34
+    },
+    {
+      "location": "$houdini/runtime/lib/networkUtils.js",
+      "valueUsed": 514,
+      "valueRemoved": 14
+    },
+    {
+      "location": "src/client.ts",
+      "valueUsed": 235,
+      "valueRemoved": 21
+    },
+    {
+      "location": "$houdini/runtime/cache/cache.js",
+      "valueUsed": 2844,
+      "valueRemoved": 98
+    },
+    {
+      "location": "$houdini/runtime/cache/gc.js",
+      "valueUsed": 306,
+      "valueRemoved": 10
+    },
+    {
+      "location": "$houdini/runtime/cache/storage.js",
+      "valueUsed": 1668,
+      "valueRemoved": 35
+    },
+    {
+      "location": "$houdini/runtime/cache/lists.js",
+      "valueUsed": 1817,
+      "valueRemoved": 37
+    },
+    {
+      "location": "$houdini/runtime/cache/stuff.js",
+      "valueUsed": 346,
+      "valueRemoved": 12
+    },
+    {
+      "location": "$houdini/runtime/cache/subscription.js",
+      "valueUsed": 1030,
+      "valueRemoved": 32
+    }
+  ]
+}

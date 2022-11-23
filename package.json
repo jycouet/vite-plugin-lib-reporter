@@ -1,0 +1,54 @@
+{
+  "name": "vite-plugin-lib-reporter",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jycouet/vite-plugin-lib-reporter"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "pck": "vite build && svelte-package && node ./tools/tweakPck",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.7",
+    "@changesets/cli": "^2.25.2",
+    "@sveltejs/adapter-static": "1.0.0-next.48",
+    "@sveltejs/kit": "1.0.0-next.559",
+    "@sveltejs/package": "1.0.0-next.6",
+    "@types/d3-format": "^3.0.1",
+    "@types/d3-hierarchy": "^3.1.0",
+    "@urql/exchange-auth": "^1.0.0",
+    "@urql/exchange-graphcache": "^5.0.5",
+    "@urql/exchange-multipart-fetch": "^1.0.1",
+    "@urql/exchange-refocus": "^1.0.0",
+    "@urql/exchange-request-policy": "^1.0.0",
+    "@urql/exchange-retry": "^1.0.0",
+    "@urql/svelte": "^3.0.1",
+    "d3-format": "^3.1.0",
+    "d3-hierarchy": "^3.1.2",
+    "graphql": "^15.8.0",
+    "houdini": "^0.17.13",
+    "houdini-svelte": "^0.17.13",
+    "layercake": "^7.1.0",
+    "svelte": "^3.53.1",
+    "svelte-check": "^2.9.2",
+    "svelte-preprocess": "^4.10.7",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4"
+  },
+  "dependencies": {
+    "@kitql/helper": "0.6.0",
+    "terser": "^5.15.1"
+  },
+  "publishConfig": {
+    "directory": "package",
+    "access": "public"
+  }
+}

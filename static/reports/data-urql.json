@@ -1,0 +1,184 @@
+{
+  "name": "Urql",
+  "results": {
+    "source": {
+      "nbFile": 139,
+      "size": 660321,
+      "minified": 307990,
+      "compressed": 102242
+    },
+    "treeshaked": {
+      "nbFile": 1,
+      "size": 187556,
+      "minified": 93433,
+      "compressed": 31286
+    }
+  },
+  "treeData": [
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+svelte@3.0.1_ybzpcqsimalqt5yz4qkzfeiyuy/node_modules/@urql/svelte/dist/urql-svelte.mjs",
+      "valueUsed": 484,
+      "valueRemoved": 309
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+exchange-multipart-fetch@1.0.1_graphql@15.8.0/node_modules/@urql/exchange-multipart-fetch/dist/urql-exchange-multipart-fetch.mjs",
+      "valueUsed": 505,
+      "valueRemoved": 94
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+exchange-refocus@1.0.0_graphql@15.8.0/node_modules/@urql/exchange-refocus/dist/urql-exchange-refocus.mjs",
+      "valueUsed": 337,
+      "valueRemoved": 24
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+exchange-request-policy@1.0.0_graphql@15.8.0/node_modules/@urql/exchange-request-policy/dist/urql-exchange-request-policy.mjs",
+      "valueUsed": 305,
+      "valueRemoved": 40
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+exchange-retry@1.0.0_graphql@15.8.0/node_modules/@urql/exchange-retry/dist/urql-exchange-retry.mjs",
+      "valueUsed": 497,
+      "valueRemoved": 65
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+exchange-graphcache@5.0.4_graphql@15.8.0/node_modules/@urql/exchange-graphcache/dist/urql-exchange-graphcache.mjs",
+      "valueUsed": 7561,
+      "valueRemoved": 901
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+core@3.0.5_graphql@15.8.0/node_modules/@urql/core/dist/urql-core.mjs",
+      "valueUsed": 2620,
+      "valueRemoved": 1076
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/wonka@6.1.1/node_modules/wonka/dist/wonka.mjs",
+      "valueUsed": 1619,
+      "valueRemoved": 1257
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/@urql+core@3.0.5_graphql@15.8.0/node_modules/@urql/core/dist/ddbb86ae.mjs",
+      "valueUsed": 2646,
+      "valueRemoved": 117
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/parser.mjs",
+      "valueUsed": 3119,
+      "valueRemoved": 127
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/source.mjs",
+      "valueUsed": 493,
+      "valueRemoved": 70
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/location.mjs",
+      "valueUsed": 146,
+      "valueRemoved": 4
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/kinds.mjs",
+      "valueUsed": 536,
+      "valueRemoved": 5
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/tokenKind.mjs",
+      "valueUsed": 237,
+      "valueRemoved": 6
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/printer.mjs",
+      "valueUsed": 1387,
+      "valueRemoved": 36
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/lexer.mjs",
+      "valueUsed": 2071,
+      "valueRemoved": 57
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/ast.mjs",
+      "valueUsed": 279,
+      "valueRemoved": 29
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/printLocation.mjs",
+      "valueUsed": 517,
+      "valueRemoved": 27
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/visitor.mjs",
+      "valueUsed": 1191,
+      "valueRemoved": 177
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/error/GraphQLError.mjs",
+      "valueUsed": 1902,
+      "valueRemoved": 81
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/error/syntaxError.mjs",
+      "valueUsed": 102,
+      "valueRemoved": 30
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/directiveLocation.mjs",
+      "valueUsed": 253,
+      "valueRemoved": 6
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/utilities/valueFromASTUntyped.mjs",
+      "valueUsed": 287,
+      "valueRemoved": 60
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/devAssert.mjs",
+      "valueUsed": 78,
+      "valueRemoved": 11
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/inspect.mjs",
+      "valueUsed": 753,
+      "valueRemoved": 25
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/invariant.mjs",
+      "valueUsed": 113,
+      "valueRemoved": 6
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/polyfills/symbols.mjs",
+      "valueUsed": 102,
+      "valueRemoved": 62
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/isObjectLike.mjs",
+      "valueUsed": 170,
+      "valueRemoved": 7
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/keyValMap.mjs",
+      "valueUsed": 106,
+      "valueRemoved": 11
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/instanceOf.mjs",
+      "valueUsed": 65,
+      "valueRemoved": 117
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/defineInspect.mjs",
+      "valueUsed": 143,
+      "valueRemoved": 33
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/language/blockString.mjs",
+      "valueUsed": 540,
+      "valueRemoved": 7
+    },
+    {
+      "location": "/home/jycouet/udev/gh/lib/vite-plugin-lib-reporter/node_modules/.pnpm/graphql@15.8.0/node_modules/graphql/jsutils/nodejsCustomInspectSymbol.mjs",
+      "valueUsed": 122,
+      "valueRemoved": 3
+    }
+  ]
+}
