@@ -13,7 +13,7 @@
     "pck": "vite build && svelte-package && node ./tools/tweakPck",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "release": "pnpm pck && changeset publish"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.7",
