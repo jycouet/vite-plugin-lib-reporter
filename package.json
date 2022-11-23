@@ -12,6 +12,7 @@
     "build": "svelte-kit sync && vite build",
     "pck": "pnpm build && svelte-package && node ./tools/tweakPck",
     "preview": "vite preview",
+    "format": "prettier --write --list-different .",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "release": "pnpm pck && changeset publish"
   },
@@ -21,6 +22,8 @@
     "@sveltejs/adapter-static": "1.0.0-next.48",
     "@sveltejs/kit": "1.0.0-next.559",
     "@sveltejs/package": "1.0.0-next.6",
+    "@theguild/prettier-config": "^1.0.0",
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "@types/d3-format": "^3.0.1",
     "@types/d3-hierarchy": "^3.1.0",
     "@urql/exchange-auth": "^1.0.0",
@@ -36,6 +39,8 @@
     "houdini": "^0.17.13",
     "houdini-svelte": "^0.17.13",
     "layercake": "^7.1.0",
+    "prettier": "^2.8.0",
+    "prettier-plugin-svelte": "^2.8.1",
     "svelte": "^3.53.1",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
@@ -44,7 +49,7 @@
     "vite": "^3.2.4"
   },
   "dependencies": {
-    "@kitql/helper": "0.6.0",
+    "@kitql/helper": "^0.6.0",
     "terser": "^5.15.1"
   },
   "publishConfig": {

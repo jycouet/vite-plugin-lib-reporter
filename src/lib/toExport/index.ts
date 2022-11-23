@@ -1,2 +1,2 @@
-export { formatSize } from "./formatString";
-export { libReporter } from "./plugin";
+export { formatSize } from './formatString.js'
+export { libReporter } from './plugin.js'

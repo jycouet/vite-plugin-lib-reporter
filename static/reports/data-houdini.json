@@ -3,7 +3,7 @@
   "results": {
     "source": {
       "nbFile": 44,
-      "size": 100436,
+      "size": 100434,
       "minified": 57496,
       "compressed": 23793
     },
@@ -11,7 +11,7 @@
       "nbFile": 4,
       "size": 66937,
       "minified": 35381,
-      "compressed": 14500
+      "compressed": 14497
     }
   },
   "treeData": [
@@ -22,13 +22,23 @@
     },
     {
       "location": "$houdini/runtime/lib/config.js",
-      "valueUsed": 360,
-      "valueRemoved": 79
+      "valueUsed": 359,
+      "valueRemoved": 80
     },
     {
       "location": "$houdini/artifacts/AllContinents.js",
       "valueUsed": 268,
       "valueRemoved": 0
+    },
+    {
+      "location": "houdini.config.js",
+      "valueUsed": 135,
+      "valueRemoved": 14
+    },
+    {
+      "location": "$houdini/runtime/lib/scalars.js",
+      "valueUsed": 589,
+      "valueRemoved": 130
     },
     {
       "location": "$houdini/plugins/houdini-svelte/runtime/session.js",
@@ -41,16 +51,6 @@
       "valueRemoved": 80
     },
     {
-      "location": "$houdini/runtime/lib/scalars.js",
-      "valueUsed": 589,
-      "valueRemoved": 130
-    },
-    {
-      "location": "houdini.config.js",
-      "valueUsed": 135,
-      "valueRemoved": 14
-    },
-    {
       "location": "$houdini/plugins/houdini-svelte/runtime/stores/query.js",
       "valueUsed": 1571,
       "valueRemoved": 392
@@ -61,14 +61,9 @@
       "valueRemoved": 52
     },
     {
-      "location": "$houdini/runtime/lib/types.js",
-      "valueUsed": 174,
-      "valueRemoved": 148
-    },
-    {
       "location": "$houdini/plugins/houdini-svelte/runtime/network.js",
-      "valueUsed": 169,
-      "valueRemoved": 32
+      "valueUsed": 167,
+      "valueRemoved": 34
     },
     {
       "location": "$houdini/runtime/index.js",
@@ -81,14 +76,19 @@
       "valueRemoved": 8
     },
     {
-      "location": "$houdini/runtime/lib/network.js",
-      "valueUsed": 842,
-      "valueRemoved": 377
+      "location": "$houdini/runtime/lib/types.js",
+      "valueUsed": 174,
+      "valueRemoved": 148
     },
     {
       "location": "$houdini/runtime/lib/log.js",
       "valueUsed": 215,
       "valueRemoved": 109
+    },
+    {
+      "location": "$houdini/runtime/lib/network.js",
+      "valueUsed": 842,
+      "valueRemoved": 377
     },
     {
       "location": "$houdini/runtime/cache/index.js",
@@ -116,14 +116,14 @@
       "valueRemoved": 10
     },
     {
-      "location": "$houdini/runtime/cache/storage.js",
-      "valueUsed": 1668,
-      "valueRemoved": 35
-    },
-    {
       "location": "$houdini/runtime/cache/lists.js",
       "valueUsed": 1817,
       "valueRemoved": 37
+    },
+    {
+      "location": "$houdini/runtime/cache/storage.js",
+      "valueUsed": 1668,
+      "valueRemoved": 35
     },
     {
       "location": "$houdini/runtime/cache/stuff.js",

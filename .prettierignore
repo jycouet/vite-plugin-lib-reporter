@@ -1,0 +1,10 @@
+node_modules/
+dist/
+package/
+build/
+.svelte-kit/
+pnpm-lock.yaml
+.changeset/
+README.md
+$houdini
+package.json
