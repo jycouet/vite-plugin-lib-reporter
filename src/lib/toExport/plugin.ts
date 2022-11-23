@@ -42,6 +42,11 @@ export type Config = {
       compressed_max?: number
     }
   }
+
+  /**
+   * @experimental to export raw data and display a nice graph
+   */
+  export_to?: string
 }
 
 export function libReporter(config: Config): Plugin {
@@ -241,7 +246,47 @@ export function libReporter(config: Config): Plugin {
             )
           }
         }
-        // Limits
+
+        if (optMissing.length === 0) {
+          // log.info(`Includes & exculdes are well configured`);
+        } else {
+          log.error(
+            `Missing in ${logYellow('includes')} and/or ${logYellow('exculdes')}: [${optMissing
+              .map(c => logRed(`'${c}'`))
+              .join(', ')}]`,
+          )
+        }
+
+        // Write json data
+        if (config.export_to) {
+          await writeFile(
+            `${config.export_to}data-${config.name.toLocaleLowerCase()}.json`,
+            JSON.stringify(
+              {
+                name: config.name,
+                results: {
+                  source: {
+                    nbFile: oriNbFiles,
+                    size: oriSize,
+                    minified: oriMinified,
+                    compressed: oriCompressed,
+                  },
+                  treeshaked: {
+                    nbFile: new Set(optFiles).size,
+                    size: optSize,
+                    minified: optMinified,
+                    compressed: optCompressed,
+                  },
+                },
+                treeData,
+              },
+              null,
+              2,
+            ),
+          )
+        }
+
+        // Limits & error
         const listLimits: string[] = []
         addToLimit('source', 'nbFiles', oriNbFiles, config.limit?.source?.nb_file_max)
         addToLimit('source', 'size', oriSize, config.limit?.source?.size_max)
@@ -275,45 +320,6 @@ export function libReporter(config: Config): Plugin {
             stack: `[vite:lib:reporter] limit exceeded.`,
           })
         }
-
-        if (optMissing.length === 0) {
-          // log.info(`Includes & exculdes are well configured`);
-        } else {
-          log.error(
-            `Missing in ${logYellow('includes')} and/or ${logYellow('exculdes')}: [${optMissing
-              .map(c => logRed(`'${c}'`))
-              .join(', ')}]`,
-          )
-        }
-
-        await writeFile(
-          `./static/reports/data-${config.name.toLocaleLowerCase()}.json`,
-          JSON.stringify(
-            {
-              name: config.name,
-              results: {
-                source: {
-                  nbFile: oriNbFiles,
-                  size: oriSize,
-                  minified: oriMinified,
-                  compressed: oriCompressed,
-                },
-                treeshaked: {
-                  nbFile: new Set(optFiles).size,
-                  size: optSize,
-                  minified: optMinified,
-                  compressed: optCompressed,
-                },
-              },
-              treeData,
-            },
-            null,
-            2,
-          ),
-        )
-
-        // console.log(`treeData`, JSON.stringify(treeData, null, 0));
-        // console.log(`removedExports`, removedExports);
       }
     },
   }

@@ -21,6 +21,7 @@ const config: UserConfig = {
           compressed_max: 15,
         },
       },
+      export_to: './static/reports/',
     }),
     // libReporter({
     //   name: "Urql",
