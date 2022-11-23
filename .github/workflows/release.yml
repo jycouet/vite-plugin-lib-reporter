@@ -28,7 +28,7 @@ jobs:
           cat << EOF > "$HOME/.npmrc"
             email=$NPM_EMAIL
             name=$NPM_NAME
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            registry.npmjs.org/:_authToken=$NPM_TOKEN
           EOF
         env:
           NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
