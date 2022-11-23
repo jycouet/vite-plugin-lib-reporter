@@ -11,18 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: Publishing
     steps:
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            email=$NPM_EMAIL
-            name=$NPM_NAME
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
-          NPM_NAME: ${{ secrets.NPM_NAME }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Checkout Repo
         uses: actions/checkout@v3
         with:
@@ -34,6 +22,18 @@ jobs:
         with:
           nodeVersion: 18
           packageManager: pnpm
+
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            email=$NPM_EMAIL
+            name=$NPM_NAME
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
+        env:
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_NAME: ${{ secrets.NPM_NAME }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
