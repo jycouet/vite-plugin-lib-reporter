@@ -1,83 +1,79 @@
 <script lang="ts">
-  import type { HierarchyCircularNode, HierarchyNode } from "d3-hierarchy";
-  import { hierarchy, pack, stratify } from "d3-hierarchy";
-  import { getContext } from "svelte";
+  import type { HierarchyCircularNode, HierarchyNode } from 'd3-hierarchy'
+  import { hierarchy, pack, stratify } from 'd3-hierarchy'
+  import { getContext } from 'svelte'
 
-  const { width, height, data } = getContext("LayerCake") as any;
+  const { width, height, data } = getContext('LayerCake') as any
 
-  let parentKey = "undefined";
+  let parentKey = 'undefined'
 
   /** [labelVisibilityThreshold=r => r > 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior. */
-  export let labelVisibilityThreshold = (_d: HCShape) => {
-    return false;
-    // const isSmallText = d.r < 25;
-    // const isLastLevel = d.data?.children !== undefined;
+  export let labelVisibilityThreshold = (d: HCShape) => {
+    // return false;
+    const isSmallText = d.r < 25
+    const isLastLevel = d.data?.children !== undefined
 
-    // return !isSmallText && !isLastLevel;
-  };
+    return !isSmallText && !isLastLevel
+  }
 
-  const stroke = "#FFF";
-  const strokeWidth = 1;
-  const textColor = "#FFF";
-  const textStroke = "#C173DD";
-  const textStrokeWidth = 0;
-  const spacing = 0;
+  const stroke = '#FFF'
+  const strokeWidth = 1
+  const textColor = '#FFF'
+  const textStroke = '#C173DD'
+  const textStrokeWidth = 0
+  const spacing = 0
 
-  const sortBy = (a: any, b: any) => b.depth - a.depth;
+  const sortBy = (a: any, b: any) => b.depth - a.depth
 
   type Shape = {
-    valueUsed: number;
-    id: string;
+    valueUsed: number
+    id: string
     data: {
-      valueUsed: number;
-    };
-  };
-  type HShape = HierarchyNode<Shape>;
-  type HCShape = HierarchyCircularNode<Shape>;
+      valueUsed: number
+    }
+  }
+  type HShape = HierarchyNode<Shape>
+  type HCShape = HierarchyCircularNode<Shape>
 
   // let parent = {};
-  $: dataset = $data;
+  $: dataset = $data
 
   $: stratifier = stratify()
     .path((d: any) => d.location)
-    .id((d: any) => d);
+    .id((d: any) => d)
 
-  $: packer = pack().size([$width, $height]).padding(spacing);
+  $: packer = pack().size([$width, $height]).padding(spacing)
 
-  $: stratified = stratifier(dataset) as HShape;
+  $: stratified = stratifier(dataset) as HShape
   // $: console.log(stratified);
   $: root = hierarchy<HShape>(stratified)
-    .sum((d) => {
+    .sum(d => {
       try {
-        return d.data?.valueUsed || 1;
+        return d.data?.valueUsed || 1
       } catch (error) {}
-      return 1;
+      return 1
     })
-    .sort(sortBy);
+    .sort(sortBy)
 
-  $: packed = packer(root);
+  $: packed = packer(root)
 
-  $: descendants = packed.descendants() as HCShape[];
+  $: descendants = packed.descendants() as HCShape[]
 
   // const titleCase = (d: any) => d.replace(/^\w/, (w: any) => w.toUpperCase());
   const titleSmall = (d: any) => {
-    const s = d.split("/");
-    return s[s.length - 1];
-  };
+    const s = d.split('/')
+    return s[s.length - 1]
+  }
   // const commas = format(",");
 
   function formatSize(number: number): string {
-    return (number / 1024).toFixed(2) + " kb";
+    return (number / 1024).toFixed(2) + ' kb'
   }
 </script>
 
 <div class="circle-pack" data-has-parent-key={parentKey !== undefined}>
   {#each descendants as d}
-    <div
-      class="circle-group"
-      data-id={d.data.id}
-      data-visible={labelVisibilityThreshold(d)}
-    >
+    <div class="circle-group" data-id={d.data.id} data-visible={labelVisibilityThreshold(d)}>
       <div
         class="circle"
         style="left:{d.x}px;top:{d.y}px;width:{d.r * 2}px;
@@ -121,13 +117,13 @@
     transform: translate(-50%, -50%);
   }
   /* Hide the root node if we want, useful if we are creating our own root */
-  .circle-pack[data-has-parent-key="false"] .circle-group[data-id="all"] {
+  .circle-pack[data-has-parent-key='false'] .circle-group[data-id='all'] {
     display: none;
   }
   /* .circle-group:hover {
     z-index: 9999;
   } */
-  .circle-group[data-visible="false"] .text-group {
+  .circle-group[data-visible='false'] .text-group {
     display: none;
     padding: 4px 7px;
     background: #fff;
@@ -135,14 +131,14 @@
     transform: translate(-50%, -100%);
     top: -4px;
   }
-  .circle-group[data-visible="false"]:hover .text-group {
+  .circle-group[data-visible='false']:hover .text-group {
     z-index: 999;
     display: block !important;
     /* On hover, set the text color to black and eliminate the shadow */
     text-shadow: none !important;
     color: #000 !important;
   }
-  .circle-group[data-visible="false"]:hover .circle {
+  .circle-group[data-visible='false']:hover .circle {
     border-color: #000 !important;
   }
   .text-group {

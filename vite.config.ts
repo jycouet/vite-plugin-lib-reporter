@@ -21,19 +21,21 @@ const config: UserConfig = {
           compressed_max: 15,
         },
       },
-      export_to: './static/reports/',
+      always_log_report: true,
     }),
-    // libReporter({
-    //   name: "Urql",
-    //   includes: [
-    //     "@urql/svelte",
-    //     "@urql/core",
-    //     "wonka",
-    //     "graphql",
-    //     "@urql/exchange-graphcache",
-    //   ],
-    //   excludes: ["svelte", "vite/preload-helper"],
-    // }),
+    libReporter({
+      name: 'Urql',
+      includes: [
+        '@urql/svelte',
+        '@urql/core',
+        'wonka',
+        'graphql',
+        '@urql/exchange-graphcache',
+        'extract-files',
+        'commonjsHelpers.js',
+      ],
+      excludes: ['svelte', 'vite/preload-helper'],
+    }),
   ],
 }
 

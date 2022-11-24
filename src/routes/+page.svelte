@@ -1,70 +1,62 @@
 <script lang="ts">
-  import { Html, LayerCake } from "layercake";
-  import { onMount } from "svelte";
-  import { writable } from "svelte/store";
+  import CirclePack from '$lib/CirclePack-html.svelte'
+  import { formatSize } from '$lib/toExport/formatString'
+  import { Html, LayerCake } from 'layercake'
+  import { onMount } from 'svelte'
+  import { writable } from 'svelte/store'
 
-  import CirclePack from "$lib/CirclePack-html.svelte";
-  import { formatSize } from "$lib/toExport/formatString";
+  let innerWidth: number
+  let innerHeight: number
 
-  let reports = ["houdini", "urql"];
-  let innerWidth: number;
-
-  // const padding_min = 10;
-  $: size = innerWidth
+  $: sizeOptiWidth = innerWidth
     ? innerWidth < 900
       ? innerWidth - 50
       : innerWidth / $arr.length - 50
-    : 600;
-  $: max = 0;
+    : 600
+  $: size = sizeOptiWidth > innerHeight - 250 ? innerHeight - 250 : sizeOptiWidth
+  $: max = 0
 
-  $: arr = writable<any[]>([]);
-
-  async function dataFetch(name: string) {
-    try {
-      const res = await fetch(`/reports/data-${name}.json`);
-      return await res.json();
-    } catch (error) {}
-    return null;
-  }
+  $: arr = writable<any[]>([])
 
   const lookingAt = (d: any) => {
-    return d.results.treeshaked.compressed;
-  };
+    return d.results.treeshaked.compressed
+  }
 
   onMount(async () => {
-    $arr = await Promise.all(reports.map(async (c) => await dataFetch(c)));
+    const res = await fetch(`/reports/data-lib-reporter.json`)
+    $arr = await res.json()
 
-    $arr.forEach((d) => {
+    $arr.forEach(d => {
       if (lookingAt(d) > max) {
-        max = lookingAt(d);
+        max = lookingAt(d)
       }
-    });
-  });
+    })
+  })
 
   const getScale = (d: any, size: number) => {
-    const maxScale = size;
-    const percent = (lookingAt(d) * 100) / max;
-    const pixel = (percent * maxScale) / 100;
-    const padding = (maxScale - pixel) / 2;
-    return padding;
-  };
+    const maxScale = size
+    const percent = (lookingAt(d) * 100) / max
+    const pixel = (percent * maxScale) / 100
+    const padding = (maxScale - pixel) / 2
+    return padding
+  }
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <!-- <input type="number" bind:value={size} step="10" />
 
 <hr /> -->
 
 <div class="container">
-  {#each $arr as data}
-    {#if data}
-      {@const p = getScale(data, size)}
+  {#each $arr as dataReport}
+    {#if dataReport}
+      {@const p = getScale(dataReport, size)}
       <div class="lib" style="width: {size}px;">
         <table style="width: 100%; text-align: right;">
           <tr>
             <td style="font-size: x-large; text-align: left;">
-              <b><u>{data.name}</u></b>
+              <b><u>{dataReport.name}</u></b>
             </td>
             <td>nbFiles</td>
             <td>size</td>
@@ -73,29 +65,24 @@
           </tr>
           <tr>
             <td>Source</td>
-            <td>{data.results.source.nbFile}</td>
-            <td>{formatSize(data.results.source.size)}</td>
-            <td>{formatSize(data.results.source.minified)}</td>
-            <td>{formatSize(data.results.source.compressed)}</td>
+            <td>{dataReport.results.source.nbFile}</td>
+            <td>{formatSize(dataReport.results.source.size)}</td>
+            <td>{formatSize(dataReport.results.source.minified)}</td>
+            <td>{formatSize(dataReport.results.source.compressed)}</td>
           </tr>
           <tr>
             <td>Treeshaked</td>
-            <td>{data.results.treeshaked.nbFile}</td>
-            <td>{formatSize(data.results.treeshaked.size)}</td>
-            <td>{formatSize(data.results.treeshaked.minified)}</td>
-            <td>{formatSize(data.results.treeshaked.compressed)}</td>
+            <td>{dataReport.results.treeshaked.nbFile}</td>
+            <td>{formatSize(dataReport.results.treeshaked.size)}</td>
+            <td>{formatSize(dataReport.results.treeshaked.minified)}</td>
+            <td>{formatSize(dataReport.results.treeshaked.compressed)}</td>
           </tr>
         </table>
-        <div
-          class="wrapper"
-          style="width: {size}px; height: {size}px;"
-          height={size}
-          width={size}
-        >
+        <div class="wrapper" style="width: {size}px; height: {size}px;" height={size} width={size}>
           <div class="chart-container">
             <LayerCake
               padding={{ top: p, bottom: p, left: p, right: p }}
-              data={data.treeData}
+              data={dataReport.treeData}
             >
               <Html>
                 <CirclePack />

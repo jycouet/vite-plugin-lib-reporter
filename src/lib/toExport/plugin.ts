@@ -1,5 +1,5 @@
 import { Log, logGreen, logYellow, logRed } from '@kitql/helper'
-import { writeFile } from 'fs/promises'
+import { writeFile, mkdir, readFile, unlink } from 'fs/promises'
 import { promisify } from 'node:util'
 import { gzip } from 'node:zlib'
 import { minify } from 'terser'
@@ -8,6 +8,8 @@ import type { Plugin } from 'vite'
 import { formatSize } from './formatString.js'
 
 const log = new Log('lib-reporter')
+const folder = './static/reports'
+const filePath = `${folder}/data-lib-reporter.json`
 
 export type Config = {
   /**
@@ -44,9 +46,9 @@ export type Config = {
   }
 
   /**
-   * @experimental to export raw data and display a nice graph
+   * always log report in the console. By default, it's here only if there is an issue.
    */
-  export_to?: string
+  always_log_report?: boolean
 }
 
 export function libReporter(config: Config): Plugin {
@@ -95,10 +97,15 @@ export function libReporter(config: Config): Plugin {
 
   // Plugin
   return {
-    name: 'vite:lib:reporter',
+    name: 'lib:reporter',
     apply: 'build',
 
     async moduleParsed(module) {
+      // rmv previous generated files
+      try {
+        await unlink(filePath)
+      } catch (error) {}
+
       if (isInteresing(module.id)) {
         const minified = (await minify(module.code ?? '')).code || ''
         const compressed = await compress(minified)
@@ -204,6 +211,7 @@ export function libReporter(config: Config): Plugin {
           })
         }
         optMissing = [...new Set(optMissing)]
+        const optNbFiles = new Set(optFiles).size
 
         function format(nbFiles: number, size: number, minified: number, compressed: number) {
           return {
@@ -213,14 +221,10 @@ export function libReporter(config: Config): Plugin {
             compressed: formatSize(compressed).padStart(10),
           }
         }
-
-        log.info(`Lib: ${logGreen(config.name)}`)
-        const optNbFiles = new Set(optFiles).size
         const results = {
           source: format(oriNbFiles, oriSize, oriMinified, oriCompressed),
           treeshaked: format(optNbFiles, optSize, optMinified, optCompressed),
         }
-        console.table(results)
 
         function addToLimit(
           type: 'source' | 'treeshaked',
@@ -238,52 +242,12 @@ export function libReporter(config: Config): Plugin {
 
           if (limitToUse < value) {
             listLimits.push(
-              `Expected "${type}" "${subType}" to be less or equal than ` +
-                `${isKbValue ? formatSize(limitToUse) : limitToUse} ` +
-                `${isKbValue ? '' : 'files '}` +
-                `but got ${isKbValue ? formatSize(value) : value} ` +
-                `${isKbValue ? '' : 'files'}`,
+              `${logRed('')}${type} ${subType} ` +
+                `${logRed(`${isKbValue ? formatSize(value) : value}`)} ` +
+                `exceeded the limit of ` +
+                `${logYellow(`${isKbValue ? formatSize(limitToUse) : limitToUse}`)}`,
             )
           }
-        }
-
-        if (optMissing.length === 0) {
-          // log.info(`Includes & exculdes are well configured`);
-        } else {
-          log.error(
-            `Missing in ${logYellow('includes')} and/or ${logYellow('exculdes')}: [${optMissing
-              .map(c => logRed(`'${c}'`))
-              .join(', ')}]`,
-          )
-        }
-
-        // Write json data
-        if (config.export_to) {
-          await writeFile(
-            `${config.export_to}data-${config.name.toLocaleLowerCase()}.json`,
-            JSON.stringify(
-              {
-                name: config.name,
-                results: {
-                  source: {
-                    nbFile: oriNbFiles,
-                    size: oriSize,
-                    minified: oriMinified,
-                    compressed: oriCompressed,
-                  },
-                  treeshaked: {
-                    nbFile: new Set(optFiles).size,
-                    size: optSize,
-                    minified: optMinified,
-                    compressed: optCompressed,
-                  },
-                },
-                treeData,
-              },
-              null,
-              2,
-            ),
-          )
         }
 
         // Limits & error
@@ -314,11 +278,77 @@ export function libReporter(config: Config): Plugin {
           config.limit?.treeshaked?.compressed_max,
         )
 
+        // Write json data
+        if (optMissing.length === 0 && listLimits.length === 0) {
+          let contentJson = []
+          try {
+            const content = await readFile(filePath, 'utf-8')
+            contentJson = JSON.parse(content.toString())
+          } catch (error) {}
+
+          contentJson = contentJson.filter((c: any) => c.name !== config.name)
+          contentJson.push({
+            name: config.name,
+            results: {
+              source: {
+                nbFile: oriNbFiles,
+                size: oriSize,
+                minified: oriMinified,
+                compressed: oriCompressed,
+              },
+              treeshaked: {
+                nbFile: new Set(optFiles).size,
+                size: optSize,
+                minified: optMinified,
+                compressed: optCompressed,
+              },
+            },
+            treeData,
+          })
+
+          await mkdir(folder, { recursive: true })
+          await writeFile(filePath, JSON.stringify(contentJson, null, 2))
+        }
+
+        // we are done whith everything... Now... What do we log?
+
+        // If everything is ok...
+        if (optMissing.length === 0 && listLimits.length === 0) {
+          if (config.always_log_report) {
+            log.info(`{ name: ${logGreen(config.name)} }`)
+            console.table(results)
+            console.log('')
+          } else {
+            log.info(`{ name: ${logGreen(config.name)} } ${logGreen(`✔ success`)}`)
+          }
+        }
+
+        // If we have config issues... Break the build
+        if (optMissing.length === 0) {
+          // log.info(`Includes & exculdes are well configured`);
+        } else {
+          log.info(`{ name: ${logGreen(config.name)} }`)
+          console.table(results)
+          const msg =
+            `${logYellow('')}Missing ${logYellow('includes')}` + ` and/or ${logYellow('exculdes')}`
+          this.error({
+            message: `${msg}: [${optMissing.map(c => logRed(`'${c}'`)).join(', ')}]`,
+            stack: `[lib:reporter] ${logGreen(config.name)} => ${msg}. ${logRed(
+              `Check your config`,
+            )} `,
+          })
+          console.log('')
+        }
+
+        // If we have limit issues... Break the build
         if (listLimits.length > 0) {
+          log.info(`{ name: ${logGreen(config.name)} }`)
+          console.table(results)
           this.error({
             message: `\r\n${listLimits.map(c => ` - ${c}`).join('\r\n')}`,
-            stack: `[vite:lib:reporter] limit exceeded.`,
+            stack: `[lib:reporter] ${config.name} => ${logRed(`limit exceeded.`)}`,
           })
+          console.log('')
         }
       }
     },
