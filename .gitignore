@@ -3,6 +3,6 @@ node_modules
 /.svelte-kit
 /package
 .env
-./static/data-lib-reporter.json
+static/data-lib-reporter.json
 
 $houdini
