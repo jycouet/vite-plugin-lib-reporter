@@ -1,5 +1,11 @@
 # vite-plugin-lib-reporter
 
+## 0.0.5
+
+### Patch Changes
+
+- 23995cf: add ui static
+
 ## 0.0.4
 
 ### Patch Changes
