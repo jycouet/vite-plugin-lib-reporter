@@ -8,11 +8,9 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
-    adapter: adapter({}),
-
-    alias: {
-      $houdini: './$houdini',
-    },
+    adapter: adapter({
+      fallback: '200.html',
+    }),
   },
 
   package: {

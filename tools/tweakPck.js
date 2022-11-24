@@ -25,10 +25,6 @@ function gooo() {
   delete packageJsonObj.scripts
   delete packageJsonObj.devDependencies
 
-  packageJsonObj.scripts = {
-    report: 'npx vite serve ./ui/index.html --port 4177 --open',
-  }
-
   // write the file
   writeFileSync(filePath, JSON.stringify(packageJsonObj, null, 2))
 

@@ -5,6 +5,7 @@
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
 
+  let state: 'LOADING' | 'NO_DATA' | 'DATA_OK' = 'LOADING'
   let innerWidth: number
   let innerHeight: number
 
@@ -23,14 +24,23 @@
   }
 
   onMount(async () => {
-    const res = await fetch(`/data-lib-reporter.json`)
-    $arr = await res.json()
+    try {
+      const res = await fetch(`/data-lib-reporter.json`)
+      if (res.status === 404) {
+        state = 'NO_DATA'
+      } else {
+        $arr = await res.json()
 
-    $arr.forEach(d => {
-      if (lookingAt(d) > max) {
-        max = lookingAt(d)
+        $arr.forEach(d => {
+          if (lookingAt(d) > max) {
+            max = lookingAt(d)
+          }
+        })
+        state = 'DATA_OK'
       }
-    })
+    } catch (error) {
+      console.log(`error`, error)
+    }
   })
 
   const getScale = (d: any, size: number) => {
@@ -48,52 +58,64 @@
 
 <hr /> -->
 
-<div class="container">
-  {#each $arr as dataReport}
-    {#if dataReport}
-      {@const p = getScale(dataReport, size)}
-      <div class="lib" style="width: {size}px;">
-        <table style="width: 100%; text-align: right;">
-          <tr>
-            <td style="font-size: x-large; text-align: left;">
-              <b><u>{dataReport.name}</u></b>
-            </td>
-            <td>nbFiles</td>
-            <td>size</td>
-            <td>minified</td>
-            <td>compressed</td>
-          </tr>
-          <tr>
-            <td>Source</td>
-            <td>{dataReport.results.source.nbFile}</td>
-            <td>{formatSize(dataReport.results.source.size)}</td>
-            <td>{formatSize(dataReport.results.source.minified)}</td>
-            <td>{formatSize(dataReport.results.source.compressed)}</td>
-          </tr>
-          <tr>
-            <td>Treeshaked</td>
-            <td>{dataReport.results.treeshaked.nbFile}</td>
-            <td>{formatSize(dataReport.results.treeshaked.size)}</td>
-            <td>{formatSize(dataReport.results.treeshaked.minified)}</td>
-            <td>{formatSize(dataReport.results.treeshaked.compressed)}</td>
-          </tr>
-        </table>
-        <div class="wrapper" style="width: {size}px; height: {size}px;" height={size} width={size}>
-          <div class="chart-container">
-            <LayerCake
-              padding={{ top: p, bottom: p, left: p, right: p }}
-              data={dataReport.treeData}
-            >
-              <Html>
-                <CirclePack />
-              </Html>
-            </LayerCake>
+{#if state === 'LOADING'}
+  Loading...
+{:else if state === 'NO_DATA'}
+  <div>No data yet. Please run 👇</div>
+  <pre style="background-color: black; padding: 1rem;">npm run build</pre>
+{:else}
+  <div class="container">
+    {#each $arr as dataReport}
+      {#if dataReport}
+        {@const p = getScale(dataReport, size)}
+        <div class="lib" style="width: {size}px;">
+          <table style="width: 100%; text-align: right;">
+            <tr>
+              <td style="font-size: x-large; text-align: left;">
+                <b><u>{dataReport.name}</u></b>
+              </td>
+              <td>nbFiles</td>
+              <td>size</td>
+              <td>minified</td>
+              <td>compressed</td>
+            </tr>
+            <tr>
+              <td>Source</td>
+              <td>{dataReport.results.source.nbFile}</td>
+              <td>{formatSize(dataReport.results.source.size)}</td>
+              <td>{formatSize(dataReport.results.source.minified)}</td>
+              <td>{formatSize(dataReport.results.source.compressed)}</td>
+            </tr>
+            <tr>
+              <td>Treeshaked</td>
+              <td>{dataReport.results.treeshaked.nbFile}</td>
+              <td>{formatSize(dataReport.results.treeshaked.size)}</td>
+              <td>{formatSize(dataReport.results.treeshaked.minified)}</td>
+              <td>{formatSize(dataReport.results.treeshaked.compressed)}</td>
+            </tr>
+          </table>
+          <div
+            class="wrapper"
+            style="width: {size}px; height: {size}px;"
+            height={size}
+            width={size}
+          >
+            <div class="chart-container">
+              <LayerCake
+                padding={{ top: p, bottom: p, left: p, right: p }}
+                data={dataReport.treeData}
+              >
+                <Html>
+                  <CirclePack />
+                </Html>
+              </LayerCake>
+            </div>
           </div>
         </div>
-      </div>
-    {/if}
-  {/each}
-</div>
+      {/if}
+    {/each}
+  </div>
+{/if}
 
 <style>
   .container {

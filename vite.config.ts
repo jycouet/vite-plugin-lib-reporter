@@ -9,14 +9,14 @@ const config: UserConfig = {
     libReporter({
       name: 'Svelte',
       includes: ['node_modules/svelte'],
-      always_log_report: true,
+      // always_log_report: true,
       localDev: true,
     }),
     libReporter({
       name: 'Layercake',
       includes: ['node_modules/layercake', 'node_modules/d3', 'node_modules/internmap'],
       excludes: ['svelte'],
-      always_log_report: true,
+      // always_log_report: true,
       localDev: true,
     }),
   ],

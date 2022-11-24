@@ -110,13 +110,6 @@ export function libReporter(config: Config): Plugin {
     name: 'lib:reporter',
     apply: 'build',
 
-    async buildStart() {
-      // rmv previous generated files
-      try {
-        // await unlink(join(folderToUse, fileName))
-      } catch (error) {}
-    },
-
     async moduleParsed(module) {
       if (isInteresing(module.id)) {
         const minified = (await minify(module.code ?? '')).code || ''
@@ -338,7 +331,11 @@ export function libReporter(config: Config): Plugin {
             console.table(results)
             console.log('')
           } else {
-            log.info(`{ name: ${logGreen(config.name)} } ${logGreen(`✔ success`)}`)
+            log.info(
+              `${logGreen(`✔ ${formatSize(optCompressed).padStart(10)}`)} { name: ${logGreen(
+                config.name,
+              )} }`,
+            )
           }
         }
 
