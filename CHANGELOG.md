@@ -1,5 +1,11 @@
 # vite-plugin-lib-reporter
 
+## 0.0.6
+
+### Patch Changes
+
+- 8159c35: adding graph results
+
 ## 0.0.5
 
 ### Patch Changes
