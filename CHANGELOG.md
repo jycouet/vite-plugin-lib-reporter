@@ -1,5 +1,11 @@
 # vite-plugin-lib-reporter
 
+## 0.0.4
+
+### Patch Changes
+
+- 6f3b895: place errors at the end
+
 ## 0.0.3
 
 ### Patch Changes
