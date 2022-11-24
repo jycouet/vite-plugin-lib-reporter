@@ -2,14 +2,13 @@ import { Log, logGreen, logYellow, logRed } from '@kitql/helper'
 import { writeFile, mkdir, readFile, unlink } from 'fs/promises'
 import { promisify } from 'node:util'
 import { gzip } from 'node:zlib'
+import { join } from 'path'
 import { minify } from 'terser'
 import type { Plugin } from 'vite'
 
 import { formatSize } from './formatString.js'
 
 const log = new Log('lib-reporter')
-const folder = './static/reports'
-const filePath = `${folder}/data-lib-reporter.json`
 
 export type Config = {
   /**
@@ -49,6 +48,11 @@ export type Config = {
    * always log report in the console. By default, it's here only if there is an issue.
    */
   always_log_report?: boolean
+
+  /**
+   * @deprecated for library development only
+   */
+  localDev?: boolean
 }
 
 export function libReporter(config: Config): Plugin {
@@ -95,17 +99,25 @@ export function libReporter(config: Config): Plugin {
   }
   let info: Record<string, Info> = {}
 
+  const folderDevStatic = './static'
+  const folderDeployedLib_ui = './node_modules/vite-plugin-lib-reporter/ui'
+  const folderToUse = config.localDev ? folderDevStatic : folderDeployedLib_ui
+
+  const fileName = `data-lib-reporter.json`
+
   // Plugin
   return {
     name: 'lib:reporter',
     apply: 'build',
 
-    async moduleParsed(module) {
+    async buildStart() {
       // rmv previous generated files
       try {
-        await unlink(filePath)
+        // await unlink(join(folderToUse, fileName))
       } catch (error) {}
+    },
 
+    async moduleParsed(module) {
       if (isInteresing(module.id)) {
         const minified = (await minify(module.code ?? '')).code || ''
         const compressed = await compress(minified)
@@ -282,7 +294,7 @@ export function libReporter(config: Config): Plugin {
         if (optMissing.length === 0 && listLimits.length === 0) {
           let contentJson = []
           try {
-            const content = await readFile(filePath, 'utf-8')
+            const content = await readFile(join(folderToUse, fileName), 'utf-8')
             contentJson = JSON.parse(content.toString())
           } catch (error) {}
 
@@ -306,8 +318,15 @@ export function libReporter(config: Config): Plugin {
             treeData,
           })
 
-          await mkdir(folder, { recursive: true })
-          await writeFile(filePath, JSON.stringify(contentJson, null, 2))
+          await mkdir(folderToUse, { recursive: true })
+          await writeFile(join(folderToUse, fileName), JSON.stringify(contentJson, null, 2))
+          // this.emitFile({
+          //   // id: 'fileName',
+          //   type: 'asset',
+          //   // name: fileName,
+          //   fileName,
+          //   source: join(folderToUse, fileName),
+          // })
         }
 
         // we are done whith everything... Now... What do we log?

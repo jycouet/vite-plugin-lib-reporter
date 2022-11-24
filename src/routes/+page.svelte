@@ -23,7 +23,7 @@
   }
 
   onMount(async () => {
-    const res = await fetch(`/reports/data-lib-reporter.json`)
+    const res = await fetch(`/data-lib-reporter.json`)
     $arr = await res.json()
 
     $arr.forEach(d => {
