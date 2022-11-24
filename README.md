@@ -26,17 +26,19 @@ const config: UserConfig = {
     /*                  */
     /*   2/ Config 👇   */
     /*                  */
-    libReporter({
-      name: "My-Super-Lib-To-Check",
-      includes: ["My-Super-Lib-To-Check"],
-      // excludes: ["svelte"], // optional
-      limit: {
-        treeshaked: {
-          compressed_max: 7,
+    libReporter([
+      {
+        name: 'My-Super-Lib-To-Check',
+        includes: ['My-Super-Lib-To-Check'],
+        // excludes: ["svelte"], // optional
+        // always_log_report: false,
+        limit: {
+          treeshaked: {
+            compressed_max: 7,
+          },
         },
       },
-    }),
-
+    ]),
 
   ],
 };
@@ -44,8 +46,15 @@ const config: UserConfig = {
 export default config;
 ```
 
-## What's next?
+- Either your build will pass ✅
+- Either it will fail because you are hitting a limit you configured. ❌
 
-Looking at results with a graph? It's almost ready.
+## Visualize your report?
+
+Just run 👇
+
+```bash
+npm run libReport
+```
 
 ![example](https://raw.githubusercontent.com/jycouet/vite-plugin-lib-reporter/main/static/example.png)
