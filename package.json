@@ -42,7 +42,7 @@
     "vite": "^3.2.4"
   },
   "dependencies": {
-    "@kitql/helper": "^0.6.0",
+    "@kitql/helpers": "^0.8.2",
     "terser": "^5.15.1"
   },
   "publishConfig": {

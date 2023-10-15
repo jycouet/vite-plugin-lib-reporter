@@ -1,4 +1,4 @@
-import { Log, logGreen, logYellow, logRed } from '@kitql/helper'
+import { Log, green, yellow, red } from '@kitql/helpers'
 import { writeFile, mkdir, readFile, unlink } from 'fs/promises'
 import { promisify } from 'node:util'
 import { gzip } from 'node:zlib'
@@ -265,10 +265,10 @@ export function libReporter(configs: Config[], localDev?: boolean): Plugin {
 
             if (limitToUse < value) {
               listLimits.push(
-                `${logRed('')}${type} ${subType} ` +
-                  `${logRed(`${isKbValue ? formatSize(value) : value}`)} ` +
+                `${red('')}${type} ${subType} ` +
+                  `${red(`${isKbValue ? formatSize(value) : value}`)} ` +
                   `exceeded the limit of ` +
-                  `${logYellow(`${isKbValue ? formatSize(limitToUse) : limitToUse}`)}`,
+                  `${yellow(`${isKbValue ? formatSize(limitToUse) : limitToUse}`)}`,
               )
             }
           }
@@ -331,12 +331,12 @@ export function libReporter(configs: Config[], localDev?: boolean): Plugin {
           // If everything is ok...
           if (optMissing.length === 0 && listLimits.length === 0) {
             if (configInfos[i].always_log_report) {
-              log.info(`{ name: ${logGreen(configInfos[i].name)} }`)
+              log.info(`{ name: ${green(configInfos[i].name)} }`)
               console.table(results)
               console.log('')
             } else {
               log.info(
-                `${logGreen(`✔ ${formatSize(optCompressed).padStart(10)}`)} { name: ${logGreen(
+                `${green(`✔ ${formatSize(optCompressed).padStart(10)}`)} { name: ${green(
                   configInfos[i].name,
                 )} }`,
               )
@@ -347,14 +347,13 @@ export function libReporter(configs: Config[], localDev?: boolean): Plugin {
           if (optMissing.length === 0) {
             // log.info(`Includes & exculdes are well configured`);
           } else {
-            log.info(`{ name: ${logGreen(configInfos[i].name)} }`)
+            log.info(`{ name: ${green(configInfos[i].name)} }`)
             console.table(results)
             const msg =
-              `${logYellow('')}Missing ${logYellow('includes')}` +
-              ` and/or ${logYellow('exculdes')}`
+              `${yellow('')}Missing ${yellow('includes')}` + ` and/or ${yellow('exculdes')}`
             this.error({
-              message: `${msg}: [${optMissing.map(c => logRed(`'${c}'`)).join(', ')}]`,
-              stack: `[lib:reporter] ${logGreen(configInfos[i].name)} => ${msg}. ${logRed(
+              message: `${msg}: [${optMissing.map(c => red(`'${c}'`)).join(', ')}]`,
+              stack: `[lib:reporter] ${green(configInfos[i].name)} => ${msg}. ${red(
                 `Check your config`,
               )} `,
             })
@@ -363,11 +362,11 @@ export function libReporter(configs: Config[], localDev?: boolean): Plugin {
 
           // If we have limit issues... Break the build
           if (listLimits.length > 0) {
-            log.info(`{ name: ${logGreen(configInfos[i].name)} }`)
+            log.info(`{ name: ${green(configInfos[i].name)} }`)
             console.table(results)
             this.error({
               message: `\r\n${listLimits.map(c => ` - ${c}`).join('\r\n')}`,
-              stack: `[lib:reporter] ${configInfos[i].name} => ${logRed(`limit exceeded.`)}`,
+              stack: `[lib:reporter] ${configInfos[i].name} => ${red(`limit exceeded.`)}`,
             })
             console.log('')
           }
