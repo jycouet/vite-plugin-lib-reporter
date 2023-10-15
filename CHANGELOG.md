@@ -1,5 +1,11 @@
 # vite-plugin-lib-reporter
 
+## 0.0.7
+
+### Patch Changes
+
+- c38e6ad: bump dep
+
 ## 0.0.6
 
 ### Patch Changes
