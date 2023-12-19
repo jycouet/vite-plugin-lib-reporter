@@ -1,5 +1,11 @@
 # vite-plugin-lib-reporter
 
+## 0.1.0
+
+### Minor Changes
+
+- 1951e09: bump to vite v5
+
 ## 0.0.7
 
 ### Patch Changes
