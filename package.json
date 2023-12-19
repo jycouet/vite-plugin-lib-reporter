@@ -22,9 +22,10 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.2",
-    "@sveltejs/adapter-static": "1.0.0-next.48",
-    "@sveltejs/kit": "1.0.0-next.559",
+    "@sveltejs/adapter-static": "^3.0.0",
+    "@sveltejs/kit": "^2.0.0",
     "@sveltejs/package": "1.0.0-next.6",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@theguild/prettier-config": "^1.0.0",
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "@types/d3-format": "^3.0.1",
@@ -33,13 +34,13 @@
     "d3-hierarchy": "^3.1.2",
     "layercake": "^7.1.0",
     "prettier": "^2.8.0",
-    "prettier-plugin-svelte": "^2.8.1",
-    "svelte": "^3.53.1",
-    "svelte-check": "^2.9.2",
-    "svelte-preprocess": "^4.10.7",
+    "prettier-plugin-svelte": "^2.10.1",
+    "svelte": "^4.0.0",
+    "svelte-check": "^3.4.3",
+    "svelte-preprocess": "^5.0.3",
     "tslib": "^2.4.1",
-    "typescript": "^4.9.3",
-    "vite": "^3.2.4"
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
   },
   "dependencies": {
     "@kitql/helpers": "^0.8.2",
