@@ -1,5 +1,11 @@
 # vite-plugin-lib-reporter
 
+## 0.1.1
+
+### Patch Changes
+
+- eaff06f: vite type plugin
+
 ## 0.1.0
 
 ### Minor Changes
