@@ -20,8 +20,8 @@ jobs:
       - name: 🧑‍💻 Setup env
         uses: jycouet/jycouet/shared-config/setup@main
         with:
-          nodeVersion: 21.2.0
-          pnpmVersion: 8.7.1
+          pnpmVersion: 9
+          nodeVersion: 22.6.0
 
       - name: Creating .npmrc
         run: |
