@@ -4,7 +4,7 @@ import { promisify } from 'node:util'
 import { gzip } from 'node:zlib'
 import { join } from 'path'
 import { minify } from 'terser'
-import type { Plugin } from 'vite'
+import type { PluginOption } from 'vite'
 
 import { formatSize } from './formatString.js'
 
@@ -73,7 +73,7 @@ type ConfigAndInfo = Config & {
 /**
  * fill only the config parameter! (local dev is only for me 😎)
  */
-export function libReporter(configs: Config[], localDev?: boolean): Plugin {
+export function libReporter(configs: Config[], localDev?: boolean): PluginOption {
   // configs
   const configInfos = configs as ConfigAndInfo[]
   for (let i = 0; i < configInfos.length; i++) {
